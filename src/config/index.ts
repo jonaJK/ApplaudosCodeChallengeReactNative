@@ -18,7 +18,15 @@ const api = {
                 'page[offset]': filters.offset
             }
             return { url: '/anime', params }
-        }
+        },
+        getManga: (filters: FilterOptions) => {
+            let params = {
+                sort: `${filters.sort}`,
+                'page[limit]': filters.limit,
+                'page[offset]': filters.offset
+            }
+            return { url: '/manga', params }
+        },
     }
 }
 

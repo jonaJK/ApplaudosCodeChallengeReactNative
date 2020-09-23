@@ -6,6 +6,7 @@ import ScrollSectionSkeleton from '@app/components/ScrollSectionSkeleton';
 
 type Props = {
     items: SectionItem[];
+    type: string;
     title: string;
     onPress: (params: onPressParam) => void;
     requestStatus: RequestStatus;
@@ -15,14 +16,14 @@ type ItemProps = {
     item: SectionItem;
 }
 
-function ScrollSection({ items = [], title, onPress = (_) => { }, requestStatus }: Props) {
+function ScrollSection({ items = [], type, title, onPress = (_) => { }, requestStatus }: Props) {
 
     const renderItem = ({ item }: ItemProps) => {
         return (
             <TouchableNativeFeedback
                 useForeground={true}
                 onPress={() => {
-                    onPress({ id: item.id });
+                    onPress({ id: item.id, type });
                 }}
             >
                 <View style={styles.touchable}>

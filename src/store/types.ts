@@ -23,6 +23,8 @@ export type Image = {
 
 export type Status = 'current' | 'finished' | 'tba' | 'unreleased' | 'upcoming';
 
+// Anime
+
 export type AnimeType = 'ONA' | 'OVA' | 'TV' | 'movie' | 'music' | 'special';
 
 export type Anime = {
@@ -64,6 +66,48 @@ export type NormalizedJsonApiDocument<T, K extends string> = {
     [type in K]: { [key: string]: T };
 };
 
+// Manga
+
+export type MangaType = 'doujin' | 'manga' | 'manhua' | 'manhwa' | 'novel' | 'oel' | 'oneshot';
+
+export type Manga = {
+    canonicalTitle: string;
+    startDate: string;
+    endDate: string;
+    ratingRank: number;
+    popularityRank: number;
+    ageRating: string;
+    ageRatingGuide: String;
+    subtype: MangaType;
+    averageRating: string;
+    synopsis: string;
+    posterImage: Image;
+    chapterCount: number;
+    volumeCount: number;
+    serialization: string;
+    status: Status;
+}
+
+export type NormalizedMangaResponse<T> = {
+    id: string;
+    attributes: T;
+};
+
+export type NormalizedManga = NormalizedMangaResponse<Manga>;
+
+export type NormalizedMangaState<T> = {
+    manga: { [key: string]: T };
+    ids: string[];
+    selectedId: string;
+    status: RequestStatus;
+    error: string | null
+}
+
+export type NormalizedMangaDocument = NormalizedJsonApiDocument<
+    NormalizedManga,
+    'manga'
+>;
+
 // Components Types
 
 export type SectionItem = {
@@ -74,6 +118,7 @@ export type SectionItem = {
 
 export type onPressParam = {
     id: string;
+    type: string;
 }
 
 // API Types
