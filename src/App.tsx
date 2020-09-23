@@ -11,7 +11,8 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from '@app/store/config';
+import { PersistGate } from 'redux-persist/integration/react';
+import store, { persistor } from '@app/store/config';
 import AppNavigator from '@app/navigation/AppNavigator';
 
 declare const global: { HermesInternal: null | {} };
@@ -19,7 +20,9 @@ declare const global: { HermesInternal: null | {} };
 const App = () => {
     return (
         <Provider store={store}>
-            <AppNavigator />
+            <PersistGate loading={null} persistor={persistor}>
+                <AppNavigator />
+            </PersistGate>
         </Provider>
     );
 };
