@@ -15,6 +15,7 @@
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
     "@reduxjs/toolkit": "^1.4.0",
+    "@types/react-native-vector-icons": "^6.4.6",
     "@types/react-redux": "^7.1.9",
     "axios": "^0.20.0",
     "json-api-normalizer": "^1.0.0",
@@ -26,6 +27,7 @@
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.11.0",
     "react-native-skeleton-placeholder": "^2.0.7",
+    "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.1",
     "redux-persist": "^6.0.0"
   },
