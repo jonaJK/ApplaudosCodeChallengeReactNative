@@ -23,6 +23,19 @@ export type Image = {
 
 export type Status = 'current' | 'finished' | 'tba' | 'unreleased' | 'upcoming';
 
+export type linksType = {
+    self: string;
+    related: string;
+}
+
+export type Links = {
+    links: linksType;
+}
+
+export type Relationships = {
+    genres: Links;
+}
+
 // Anime
 
 export type AnimeType = 'ONA' | 'OVA' | 'TV' | 'movie' | 'music' | 'special';
@@ -40,11 +53,14 @@ export type Anime = {
     posterImage: Image;
     synopsis: string;
     ratingRank: number;
+    youtubeVideoId: string;
+    genres: string[];
 }
 
 export type NormalizedAnimeResponse<T> = {
     id: string;
     attributes: T;
+    relationships: Relationships;
 };
 
 export type NormalizedAnime = NormalizedAnimeResponse<Anime>;
@@ -65,6 +81,11 @@ export type NormalizedAnimeDocument = NormalizedJsonApiDocument<
 export type NormalizedJsonApiDocument<T, K extends string> = {
     [type in K]: { [key: string]: T };
 };
+
+export type AnimeGenres = {
+    id: string;
+    list: string[];
+}
 
 // Manga
 

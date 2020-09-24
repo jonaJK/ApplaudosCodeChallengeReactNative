@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Anime } from '@app/store/types';
 
 function DetailContent(item: Anime) {
@@ -8,7 +8,15 @@ function DetailContent(item: Anime) {
         <View style={styles.detailContainer}>
             <View style={styles.textBox}>
                 <Text style={styles.titles}>Genres</Text>
-                <Text>Genres list</Text>
+                <View style={styles.genresContainer}>
+                    {item.genres !== undefined ? (
+                        item.genres.map(genre => (
+                            <Text style={styles.tag} key={genre}>{genre}</Text>
+                        ))
+                    ) : (
+                            <Text style={styles.tag}>Genres not available</Text>
+                        )}
+                </View>
             </View>
             <View style={styles.columnsContainer}>
                 <View style={styles.columns}>
@@ -65,4 +73,21 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold'
     },
+    genresContainer: {
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        marginTop: 5
+    },
+    tag: {
+        paddingTop: 3,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingBottom: 3,
+        marginRight: 5,
+        marginBottom: 5,
+        color: 'white',
+        backgroundColor: '#003666',
+        borderRadius: 10,
+    }
 })

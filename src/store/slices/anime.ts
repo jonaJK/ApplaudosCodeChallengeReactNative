@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createSlice, PayloadAction, createSelector, Dispatch } from '@reduxjs/toolkit';
 import { RootState } from '@app/store/config';
-import { NormalizedState, NormalizedAnimeDocument, NormalizedAnime } from '@app/store/types';
+import { NormalizedState, NormalizedAnimeDocument, NormalizedAnime, AnimeGenres } from '@app/store/types';
 // @ts-ignore
 import normalize from 'json-api-normalizer';
 import api from '@app/config/index';
@@ -28,13 +28,16 @@ const slice = createSlice({
             state.status = 'failed';
             state.error = action.payload;
         },
+        setGenres: (state, action: PayloadAction<AnimeGenres>) => {
+            state.anime[action.payload.id].attributes.genres = action.payload.list;
+        },
         selectAnime: (state, action: PayloadAction<string>) => {
             state.selectedId = action.payload;
         }
     }
 });
 
-export const { getAnimeSuccess, getAnimeError, selectAnime } = slice.actions;
+export const { getAnimeSuccess, getAnimeError, setGenres, selectAnime } = slice.actions;
 
 export const getAnimes = (state: RootState) => state.list.anime;
 export const getAnimesID = (state: RootState) => state.list.ids;
@@ -75,8 +78,32 @@ export const fetchHighestRatedAnime = async (dispatch: Dispatch) => {
         if (response.headers['content-type'] === 'application/vnd.api+json') {
             response.data = normalize(response.data);
         }
+
         dispatch(getAnimeSuccess(response.data));
+
     } catch (err) {
         dispatch(getAnimeError(err));
     }
+}
+
+export const fetchAnimeGenres = (id: string, url: string) => async (dispatch: Dispatch) => {
+
+    try {
+        const response = await axios.request({
+            url: url,
+            headers: api.headers,
+            method: 'GET',
+        });
+
+        if (response.headers['content-type'] === 'application/vnd.api+json') {
+            response.data = normalize(response.data);
+        }
+
+        let genres: string[] = [];
+        const genresObj = response.data.genres;
+        Object.keys(response.data.genres)
+            .map(item => genres.push(genresObj[item].attributes.name))
+
+        dispatch(setGenres({ id, list: genres }));
+    } catch (err) { }
 }
