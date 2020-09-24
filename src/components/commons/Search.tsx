@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableNativeFeedback, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export type Props = {
@@ -21,15 +21,20 @@ function Search({ searchText, onChangeSearchText }: Props) {
                     style={styles.searchInput}
                     placeholder="Search"
                     placeholderTextColor="white"
-                    onChangeText={searchText => onChangeSearchText(searchText)}
+                    onChangeText={searchText => onChangeSearchText(searchText.replace(/\s+/g, ' '))}
                     value={searchText}
                 />
-                <Icon
-                    name="close"
-                    size={30}
-                    color="#ffffff"
+                <TouchableNativeFeedback
+                    useForeground={true}
                     onPress={() => onChangeSearchText('')}
-                />
+                >
+                    <Icon
+                        name="close"
+                        size={30}
+                        color="#ffffff"
+                        onPress={() => onChangeSearchText('')}
+                    />
+                </TouchableNativeFeedback>
             </View>
         </>
     )
@@ -52,5 +57,5 @@ const styles = StyleSheet.create({
         flex: 1,
         color: 'white',
         borderColor: 'white'
-    }
+    },
 })

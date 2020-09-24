@@ -7,6 +7,7 @@ import ScrollSectionSkeleton from '@app/components/ScrollSectionSkeleton';
 type Props = {
     items: SectionItem[];
     type: string;
+    isSearching: boolean;
     title: string;
     onPress: (params: onPressParam) => void;
     requestStatus: RequestStatus;
@@ -16,7 +17,7 @@ type ItemProps = {
     item: SectionItem;
 }
 
-function ScrollSection({ items = [], type, title, onPress = (_) => { }, requestStatus }: Props) {
+function ScrollSection({ items = [], type, isSearching, title, onPress = (_) => { }, requestStatus }: Props) {
 
     const renderItem = ({ item }: ItemProps) => {
         return (
@@ -35,21 +36,31 @@ function ScrollSection({ items = [], type, title, onPress = (_) => { }, requestS
 
     return (
         <View>
-            <View style={styles.sectionTitleContainer}>
-                <Text style={styles.sectionTitle}>{title}</Text>
-            </View>
             {requestStatus === 'loading' && items.length === 0 ? (
-                <ScrollSectionSkeleton />
+                <>
+                    <View style={styles.sectionTitleContainer}>
+                        <Text style={styles.sectionTitle}>{title}</Text>
+                    </View>
+                    <ScrollSectionSkeleton />
+                </>
             ) : (
-
-                    <FlatList
-                        data={items}
-                        horizontal={true}
-                        keyExtractor={(item) => item.id}
-                        renderItem={renderItem}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={styles.horizontalScrollContainer}
-                    />
+                    <>
+                        {items.length > 0 &&
+                            <>
+                                <View style={styles.sectionTitleContainer}>
+                                    <Text style={styles.sectionTitle}>{title}</Text>
+                                </View>
+                                <FlatList
+                                    data={items}
+                                    horizontal={true}
+                                    keyExtractor={(item) => item.id}
+                                    renderItem={renderItem}
+                                    showsHorizontalScrollIndicator={false}
+                                    contentContainerStyle={styles.horizontalScrollContainer}
+                                />
+                            </>
+                        }
+                    </>
                 )
 
             }
