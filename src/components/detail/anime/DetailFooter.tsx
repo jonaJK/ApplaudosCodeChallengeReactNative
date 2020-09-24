@@ -3,10 +3,10 @@ import { View, Text, TouchableHighlight, Alert, Linking, StyleSheet } from 'reac
 import { Anime } from '@app/store/types';
 
 function DetailFooter(item: Anime) {
-    const yotubeUrl = "http://www.youtube.com/v";
+    const youtubeUrl = "http://www.youtube.com/v";
 
     const openYoutubeVideo = async () => {
-        const url: string = `${yotubeUrl}/${item.youtubeVideoId}`;
+        const url: string = `${youtubeUrl}/${item.youtubeVideoId}`;
         const supported: boolean = await Linking.canOpenURL(url);
 
         if (!supported) {
@@ -28,7 +28,7 @@ function DetailFooter(item: Anime) {
             {item.youtubeVideoId &&
                 <TouchableHighlight underlayColor="#ff4c4c" style={styles.youtubeButton} onPress={openYoutubeVideo}>
                     <View style={styles.button}>
-                        <Text style={styles.buttonText}>Open youtube video</Text>
+                        <Text style={styles.buttonText}>Open Youtube video</Text>
                     </View>
                 </TouchableHighlight>
             }
