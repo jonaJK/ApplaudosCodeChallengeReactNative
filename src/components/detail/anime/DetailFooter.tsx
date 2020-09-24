@@ -9,7 +9,7 @@ function DetailFooter(item: Anime) {
         const url: string = `${youtubeUrl}/${item.youtubeVideoId}`;
         const supported: boolean = await Linking.canOpenURL(url);
 
-        if (!supported) {
+        if (supported) {
             Linking.openURL(url);
         } else {
             Alert.alert("Sorry, the youtube video can't be open");
@@ -28,7 +28,7 @@ function DetailFooter(item: Anime) {
             {item.youtubeVideoId &&
                 <TouchableHighlight underlayColor="#ff4c4c" style={styles.youtubeButton} onPress={openYoutubeVideo}>
                     <View style={styles.button}>
-                        <Text style={styles.buttonText}>Open Youtube video</Text>
+                        <Text style={styles.buttonText}>Open YouTube video</Text>
                     </View>
                 </TouchableHighlight>
             }
