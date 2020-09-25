@@ -32,7 +32,6 @@ function Search({ searchText, onChangeSearchText }: Props) {
                         name="close"
                         size={30}
                         color="#ffffff"
-                        onPress={() => onChangeSearchText('')}
                     />
                 </TouchableNativeFeedback>
             </View>
@@ -48,6 +47,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         paddingBottom: 10,
+        height: 65,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
