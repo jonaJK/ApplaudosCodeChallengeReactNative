@@ -28,14 +28,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         height: 225,
         width: 150,
-        elevation: 3,
-        shadowColor: "#52565e",
-        shadowOffset: {
-            height: 1,
-            width: 0,
-        },
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
     },
     cover: {
         height: 175,
