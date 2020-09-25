@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { createSlice, PayloadAction, createSelector, Dispatch } from '@reduxjs/toolkit';
 import { RootState } from '@app/store/config';
-import { NormalizedState, NormalizedAnimeDocument, NormalizedAnime, AnimeGenres } from '@app/store/types';
+import { NormalizedState, NormalizedAnimeDocument, NormalizedAnime, AnimeGenres, AnimeCharacters } from '@app/store/types';
 // @ts-ignore
 import normalize from 'json-api-normalizer';
 import api from '@app/config/index';
@@ -31,13 +31,16 @@ const slice = createSlice({
         setGenres: (state, action: PayloadAction<AnimeGenres>) => {
             state.anime[action.payload.id].attributes.genres = action.payload.list;
         },
+        setCharacters: (state, action: PayloadAction<AnimeCharacters>) => {
+            state.anime[action.payload.id].attributes.characters = action.payload.list;
+        },
         selectAnime: (state, action: PayloadAction<string>) => {
             state.selectedId = action.payload;
         }
     }
 });
 
-export const { getAnimeSuccess, getAnimeError, setGenres, selectAnime } = slice.actions;
+export const { getAnimeSuccess, getAnimeError, setGenres, setCharacters, selectAnime } = slice.actions;
 
 export const getAnimes = (state: RootState) => state.list.anime;
 export const getAnimesID = (state: RootState) => state.list.ids;
@@ -101,9 +104,56 @@ export const fetchAnimeGenres = (id: string, url: string) => async (dispatch: Di
 
         let genres: string[] = [];
         const genresObj = response.data.genres;
-        Object.keys(response.data.genres)
+        Object.keys(genresObj)
             .map(item => genres.push(genresObj[item].attributes.name))
 
         dispatch(setGenres({ id, list: genres }));
+    } catch (err) { }
+}
+
+export const fetchAnimeCharacters = (id: string, url: string) => async (dispatch: Dispatch) => {
+
+    try {
+        let resources: string[] = [];
+        let requests: Promise<AxiosResponse>[] = [];
+        let characters: AnimeCharacters = { id, list: [] };
+
+        const response = await axios.request({
+            url: url,
+            headers: api.headers,
+            method: 'GET',
+        });
+
+        if (response.headers['content-type'] === 'application/vnd.api+json') {
+            response.data = normalize(response.data);
+        }
+
+        const resourceObj = response.data.mediaCharacters;
+        Object.keys(resourceObj)
+            .map(item => resources.push(resourceObj[item].relationships.character.links.related));
+
+        resources.map(resource => requests.push(axios.get(resource, { headers: api.headers })));
+        axios.all(requests)
+            .then(axios.spread((...responses) => {
+                responses.map(response => {
+
+                    if (response.headers['content-type'] === 'application/vnd.api+json') {
+                        response.data = normalize(response.data);
+                    }
+
+                    let key: string = Object.keys(response.data.characters)[0];
+
+                    characters.list.push({
+                        id: key,
+                        canonicalName: response.data.characters[key].attributes.canonicalName,
+                        image: {
+                            original: response.data.characters[key].attributes.image.original
+                        }
+                    });
+                })
+
+                dispatch(setCharacters(characters));
+            }))
+            .catch()
     } catch (err) { }
 }

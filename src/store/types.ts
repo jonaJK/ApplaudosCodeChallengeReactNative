@@ -34,6 +34,7 @@ export type Links = {
 
 export type Relationships = {
     genres: Links;
+    characters: Links;
 }
 
 // Anime
@@ -55,6 +56,7 @@ export type Anime = {
     ratingRank: number;
     youtubeVideoId: string;
     genres: string[];
+    characters: Character[];
 }
 
 export type NormalizedAnimeResponse<T> = {
@@ -85,6 +87,21 @@ export type NormalizedJsonApiDocument<T, K extends string> = {
 export type AnimeGenres = {
     id: string;
     list: string[];
+}
+
+export type AnimeCharacters = {
+    id: string;
+    list: Character[];
+}
+
+export type Character = {
+    id: string;
+    canonicalName: string;
+    image: CharacterImage
+}
+
+export type CharacterImage = {
+    original: string
 }
 
 // Manga

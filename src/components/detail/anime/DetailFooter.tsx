@@ -1,6 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableHighlight, Alert, Linking, StyleSheet } from 'react-native';
-import { Anime } from '@app/store/types';
+import { View, Text, FlatList, TouchableHighlight, Alert, Linking, StyleSheet } from 'react-native';
+import { Anime, Character } from '@app/store/types';
+import Card from '@app/components/commons/Card';
+
+type CharacterProps = {
+    item: Character;
+}
 
 function DetailFooter(item: Anime) {
     const youtubeUrl = "http://www.youtube.com/v";
@@ -16,6 +21,12 @@ function DetailFooter(item: Anime) {
         }
     }
 
+    const renderItem = ({ item }: CharacterProps) => {
+        return (
+            <Card canonicalTitle={item.canonicalName} posterImage={item.image.original} />
+        )
+    }
+
     return (
         <View style={styles.synopsisContainer}>
             <View style={styles.textBox}>
@@ -25,12 +36,31 @@ function DetailFooter(item: Anime) {
                 </Text>
             </View>
 
+            <View style={styles.textBox}>
+                <Text style={styles.titles}>Characters</Text>
+                {item.characters === undefined ? (
+                    <Text>Characters not available</Text>
+                ) : (
+                        <FlatList
+                            data={item.characters}
+                            horizontal={true}
+                            keyExtractor={(character) => character.id}
+                            renderItem={renderItem}
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={styles.horizontalScrollContainer}
+                        />
+                    )}
+            </View>
+
             {item.youtubeVideoId &&
-                <TouchableHighlight underlayColor="#ff4c4c" style={styles.youtubeButton} onPress={openYoutubeVideo}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>Open YouTube video</Text>
-                    </View>
-                </TouchableHighlight>
+                <View style={styles.textBox}>
+                    <Text style={styles.titles}>Video</Text>
+                    <TouchableHighlight underlayColor="#ff4c4c" style={styles.youtubeButton} onPress={openYoutubeVideo}>
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>Open YouTube video</Text>
+                        </View>
+                    </TouchableHighlight>
+                </View>
             }
         </View>
     )
@@ -40,7 +70,7 @@ export default DetailFooter;
 
 const styles = StyleSheet.create({
     synopsisContainer: {
-        paddingBottom: 25
+        paddingBottom: 40
     },
     textBox: {
         paddingBottom: 10,
@@ -64,5 +94,9 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontWeight: '600'
-    }
+    },
+    horizontalScrollContainer: {
+        paddingBottom: 10,
+        paddingTop: 10,
+    },
 })

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSelectedAnime, fetchAnimeGenres } from '@app/store/slices/anime';
+import { getSelectedAnime, fetchAnimeGenres, fetchAnimeCharacters } from '@app/store/slices/anime';
 import DetailHeader from '@app/components/detail/anime/DetailHeader';
 import DetailContent from '@app/components/detail/anime/DetailContent';
 import DetailFooter from '@app/components/detail/anime/DetailFooter';
@@ -11,9 +11,8 @@ function Detail() {
     const item = useSelector(getSelectedAnime);
 
     useEffect(() => {
-        if (item.attributes.genres === undefined) {
-            dispatch(fetchAnimeGenres(item.id, item.relationships.genres.links.related));
-        }
+        dispatch(fetchAnimeGenres(item.id, item.relationships.genres.links.related));
+        dispatch(fetchAnimeCharacters(item.id, item.relationships.characters.links.related));
     }, [dispatch]);
 
     return (
