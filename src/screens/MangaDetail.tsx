@@ -2,6 +2,7 @@ import React from 'react';
 import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { getSelectedManga } from '@app/store/slices/manga';
+import Header from '@app/components/commons/Header';
 import DetailHeader from '@app/components/detail/manga/DetailHeader';
 import DetailContent from '@app/components/detail/manga/DetailContent';
 import DetailFooter from '@app/components/detail/manga/DetailFooter';
@@ -12,6 +13,7 @@ function MangaDetail() {
     return (
         <View style={styles.container}>
             <SafeAreaView style={styles.safeAreaContainer}>
+                <Header title={item.attributes.canonicalTitle} />
                 <ScrollView style={styles.scrollViewContainer}>
                     <DetailHeader {...item.attributes} />
                     <DetailContent {...item.attributes} />

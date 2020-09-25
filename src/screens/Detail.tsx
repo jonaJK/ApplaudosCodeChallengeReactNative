@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSelectedAnime, fetchAnimeGenres, fetchAnimeCharacters } from '@app/store/slices/anime';
+import Header from '@app/components/commons/Header';
 import DetailHeader from '@app/components/detail/anime/DetailHeader';
 import DetailContent from '@app/components/detail/anime/DetailContent';
 import DetailFooter from '@app/components/detail/anime/DetailFooter';
@@ -18,6 +19,7 @@ function Detail() {
     return (
         <View style={styles.container}>
             <SafeAreaView style={styles.safeAreaContainer}>
+                <Header title={item.attributes.canonicalTitle} />
                 <ScrollView style={styles.scrollViewContainer}>
                     <DetailHeader {...item.attributes} />
                     <DetailContent {...item.attributes} />
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f3f4f7'
     },
     safeAreaContainer: {
-        flex: 1
+        flex: 1,
     },
     scrollViewContainer: {
         height: '100%',
