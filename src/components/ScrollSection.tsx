@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, FlatList, TouchableNativeFeedback, StyleSheet } from 'react-native';
 import { SectionItem, onPressParam, RequestStatus } from '@app/store/types';
-import Card from '@app/components/Card';
+import Card from '@app/components/commons/Card';
 import ScrollSectionSkeleton from '@app/components/ScrollSectionSkeleton';
 
 type Props = {
