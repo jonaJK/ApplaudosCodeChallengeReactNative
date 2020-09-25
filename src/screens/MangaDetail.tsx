@@ -2,6 +2,7 @@ import React from 'react';
 import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { getSelectedManga } from '@app/store/slices/manga';
+import { PADDING } from '@app/constants/dimensions';
 import Header from '@app/components/commons/Header';
 import DetailHeader from '@app/components/detail/manga/DetailHeader';
 import DetailContent from '@app/components/detail/manga/DetailContent';
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     scrollViewContainer: {
         height: '100%',
         paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: PADDING,
+        paddingRight: PADDING,
     },
 })

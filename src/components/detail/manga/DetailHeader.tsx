@@ -45,8 +45,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         height: 200,
-        width: 150,
-        backgroundColor: 'red'
+        width: 150
     },
     image: {
         height: 200,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Anime } from '@app/store/types';
+import { TAG_COLOR, TAG_TEXT_COLOR } from '@app/constants/colors';
 
 function DetailContent(item: Anime) {
 
@@ -86,8 +87,8 @@ const styles = StyleSheet.create({
         paddingBottom: 3,
         marginRight: 5,
         marginBottom: 5,
-        color: 'white',
-        backgroundColor: '#003666',
+        color: TAG_TEXT_COLOR,
+        backgroundColor: TAG_COLOR,
         borderRadius: 10,
     }
 })

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableHighlight, Alert, Linking, StyleSheet } from 'react-native';
 import { Anime, Character } from '@app/store/types';
+import { BUTTONS_COLOR, BUTTONS_UNDERLAYER_COLOR } from '@app/constants/colors';
 import Card from '@app/components/commons/Card';
 
 type CharacterProps = {
@@ -55,7 +56,7 @@ function DetailFooter(item: Anime) {
             {item.youtubeVideoId &&
                 <View style={styles.textBox}>
                     <Text style={styles.titles}>Video</Text>
-                    <TouchableHighlight underlayColor="#ff4c4c" style={styles.youtubeButton} onPress={openYoutubeVideo}>
+                    <TouchableHighlight underlayColor={BUTTONS_UNDERLAYER_COLOR} style={styles.youtubeButton} onPress={openYoutubeVideo}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>Open YouTube video</Text>
                         </View>
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         height: 40,
         width: 150,
-        backgroundColor: '#003666',
+        backgroundColor: BUTTONS_COLOR,
         borderRadius: 5
     },
     button: {

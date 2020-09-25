@@ -7,6 +7,7 @@ import { selectAnime, getAnimeRequestStatus, getHighestRatedAnimeList, fetchHigh
 import { selectManga, getMangaRequestStatus, getHighestRatedMangaList, fetchHighestRatedManga } from '@app/store/slices/manga';
 import { onPressParam, NormalizedAnimeResponse, Anime, NormalizedMangaResponse, Manga } from '@app/store/types';
 import { mapSectionItem, mapMangaSectionItem } from '@app/utils/mappers';
+import { PADDING } from '@app/constants/dimensions';
 import Search from '@app/components/commons/Search';
 import ScrollSection from '@app/components/ScrollSection';
 
@@ -108,8 +109,8 @@ const styles = StyleSheet.create({
     noResultContainer: {
         flex: 1,
         paddingTop: 50,
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: PADDING,
+        paddingRight: PADDING,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'

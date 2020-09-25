@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSelectedAnime, fetchAnimeGenres, fetchAnimeCharacters } from '@app/store/slices/anime';
+import { PADDING } from '@app/constants/dimensions';
 import Header from '@app/components/commons/Header';
 import DetailHeader from '@app/components/detail/anime/DetailHeader';
 import DetailContent from '@app/components/detail/anime/DetailContent';
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     scrollViewContainer: {
         height: '100%',
         paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: PADDING,
+        paddingRight: PADDING,
     },
 })

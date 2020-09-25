@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableNativeFeedback, StyleSheet } from 'react-native';
 import { SectionItem, onPressParam, RequestStatus } from '@app/store/types';
+import { PADDING } from '@app/constants/dimensions';
 import Card from '@app/components/commons/Card';
 import ScrollSectionSkeleton from '@app/components/ScrollSectionSkeleton';
+
+
 
 type Props = {
     items: SectionItem[];
@@ -73,8 +76,8 @@ export default ScrollSection;
 const styles = StyleSheet.create({
     sectionTitleContainer: {
         paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: PADDING,
+        paddingRight: PADDING,
         paddingBottom: 10,
     },
     sectionTitle: {
